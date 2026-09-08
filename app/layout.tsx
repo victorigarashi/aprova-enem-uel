@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 
@@ -18,6 +18,13 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://aprova-enem-uel.igarashivictor0.chatgpt.site'),
   openGraph: { title: 'Aprova — ENEM & UEL', description: 'Sua rotina inteligente de estudos para o ENEM e Vestibular UEL.', images: ['/og.png'] },
   twitter: { card: 'summary_large_image', title: 'Aprova — ENEM & UEL', description: 'Sua rotina inteligente de estudos para o ENEM e Vestibular UEL.', images: ['/og.png'] },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  themeColor: '#fff9fb',
 };
 
 export default function RootLayout({

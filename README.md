@@ -53,6 +53,8 @@ Os arquivos públicos são gerados em `dist/client`.
 2. Em **Settings → Pages → Build and deployment**, selecione **GitHub Actions**.
 3. Faça um push. O workflow `.github/workflows/deploy.yml` publicará o site.
 
+O workflow já usa o caminho `/aprova-enem-uel`, ideal para um repositório com esse nome. Se escolher outro nome, altere `PAGES_BASE_PATH` no workflow.
+
 ### Publicação manual
 
 ```bash

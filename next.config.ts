@@ -1,5 +1,10 @@
 import type { NextConfig } from 'next';
 
-const nextConfig: NextConfig = { output: 'export' };
+const pagesBasePath = process.env.PAGES_BASE_PATH || '';
+const nextConfig: NextConfig = {
+  output: 'export',
+  basePath: pagesBasePath,
+  assetPrefix: pagesBasePath || undefined,
+};
 
 export default nextConfig;
