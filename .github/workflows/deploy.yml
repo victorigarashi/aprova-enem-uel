@@ -23,12 +23,12 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm run build
+      - run: npm run build:pages
         env:
           PAGES_BASE_PATH: /aprova-enem-uel
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/client
+          path: out
       - name: Publicar
         id: deployment
         uses: actions/deploy-pages@v4
