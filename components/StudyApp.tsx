@@ -606,8 +606,19 @@ function Subjects({
       <PageTitle
         eyebrow="BIBLIOTECA"
         title="Matérias e conteúdos"
-        text="Encontre explicações completas, videoaulas e quizzes inéditos."
+        text={`${topics.length} trilhas com explicações e quizzes para as duas provas.`}
       />
+      <aside className="official-basis">
+        <span><Sparkles size={18} /></span>
+        <div>
+          <strong>Seleção baseada nos programas oficiais</strong>
+          <p>Matriz de Referência do ENEM e programa de disciplinas do Manual do Candidato da UEL.</p>
+        </div>
+        <div className="official-links">
+          <a href="https://www.gov.br/inep/pt-br/centrais-de-conteudo/acervo-linha-editorial/publicacoes-institucionais/avaliacoes-e-exames-da-educacao-basica/matrizes-de-referencia-enem" target="_blank" rel="noreferrer">Ver matriz ENEM</a>
+          <a href="https://sites.uel.br/vestibular/categoria-edital/manual-do-candidato/" target="_blank" rel="noreferrer">Ver manual UEL</a>
+        </div>
+      </aside>
       <div className="filters">
         <select value={subject} onChange={(e) => setSubject(e.target.value)}>
           <option>Todas</option>
@@ -622,7 +633,7 @@ function Subjects({
           <option>Todas</option>
           <option>Fácil</option>
           <option>Médio</option>
-          <option>Difícil</option>
+          <option>Desafio</option>
         </select>
         <select value={focus} onChange={(e) => setFocus(e.target.value)}>
           <option>Todos</option>

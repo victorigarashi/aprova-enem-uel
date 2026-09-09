@@ -811,6 +811,140 @@ export const topics: Topic[] = [
   },
 ];
 
+const coreTopic = (
+  data: Omit<Topic, 'videoId' | 'formulas' | 'commonMistakes' | 'quiz'> & {
+    formulas?: string[];
+    questions: Array<[string, string[], number, string]>;
+  },
+): Topic => ({
+  ...data,
+  videoId: '',
+  formulas: data.formulas ?? [],
+  commonMistakes: [
+    'Decorar sem relacionar o conceito ao contexto',
+    'Ignorar palavras-chave do enunciado',
+    'Não conferir a alternativa com os dados apresentados',
+  ],
+  quiz: makeQuiz(data.questions),
+});
+
+topics.push(
+  coreTopic({
+    id: 'funcoes-graficos', subject: 'Matemática', area: 'Matemática', title: 'Funções e leitura de gráficos',
+    description: 'Interprete variações, taxas, raízes e modelos lineares ou quadráticos.', difficulty: 'Médio', focus: 'ENEM + UEL', duration: 45,
+    explanation: ['Uma função associa cada valor do domínio a um único valor de saída. Em gráficos, o eixo horizontal representa a variável independente e o vertical, a dependente.', 'Na função afim, a taxa de variação é constante. Na quadrática, concavidade, raízes e vértice ajudam a identificar máximos, mínimos e mudanças de sinal.'],
+    summary: 'Leia primeiro os eixos e as unidades; depois identifique crescimento, interceptos e taxa de variação.',
+    concepts: ['função afim', 'função quadrática', 'gráficos', 'raízes', 'taxa de variação'], formulas: ['f(x)=ax+b', 'xᵥ=−b/2a', 'Δ=b²−4ac'],
+    example: 'Se uma corrida custa R$ 6 mais R$ 2 por km, C(x)=2x+6 e 10 km custam R$ 26.',
+    enemTip: 'Gráficos contextualizados com consumo, população e custos aparecem com frequência.', uelTip: 'Treine domínio, imagem, composição e análise algébrica do gráfico.',
+    questions: [['Em f(x)=3x+2, a taxa de variação é:', ['2','3','5','x','−3'], 1, 'O coeficiente de x é a taxa de variação.'], ['A raiz de f(x)=2x−8 é:', ['−4','0','2','4','8'], 3, '2x−8=0, então x=4.'], ['Uma parábola com a>0 tem concavidade:', ['para cima','para baixo','lateral','nula','indefinida'], 0, 'O sinal positivo de a abre a parábola para cima.']],
+  }),
+  coreTopic({
+    id: 'estatistica-probabilidade', subject: 'Matemática', area: 'Matemática', title: 'Estatística e probabilidade',
+    description: 'Analise médias, dispersão, tabelas e chances em situações reais.', difficulty: 'Médio', focus: 'ENEM + UEL', duration: 42,
+    explanation: ['Média, mediana e moda resumem conjuntos de dados de modos diferentes. A mediana é resistente a valores extremos.', 'Probabilidade compara casos favoráveis com casos possíveis em experimentos equiprováveis; gráficos exigem atenção à escala e à fonte.'],
+    summary: 'Escolha a medida adequada ao conjunto e confira se os eventos são independentes.', concepts: ['média', 'mediana', 'moda', 'probabilidade', 'gráficos'], formulas: ['P(A)=casos favoráveis/casos possíveis'],
+    example: 'Nos valores 2, 3, 3, 4 e 18, a mediana é 3, enquanto a média é 6.', enemTip: 'Interprete tabelas antes de calcular e desconfie de eixos truncados.', uelTip: 'Combine contagem, probabilidade condicional e análise de dados.',
+    questions: [['A mediana de 1, 3, 5, 9, 20 é:', ['3','5','7','9','20'], 1, 'O valor central ordenado é 5.'], ['Em um dado justo, P(número par) é:', ['1/6','1/3','1/2','2/3','1'], 2, 'Há 3 resultados pares entre 6.'], ['A medida mais afetada por extremos é:', ['moda','mediana','média','amplitude zero','frequência'], 2, 'Valores extremos puxam a média.']],
+  }),
+  coreTopic({
+    id: 'ecologia', subject: 'Biologia', area: 'Ciências da Natureza', title: 'Ecologia e ciclos biogeoquímicos',
+    description: 'Compreenda cadeias alimentares, relações ecológicas e impactos ambientais.', difficulty: 'Médio', focus: 'ENEM + UEL', duration: 45,
+    explanation: ['A energia flui pelos níveis tróficos e diminui a cada transferência, enquanto a matéria circula nos ciclos da água, carbono e nitrogênio.', 'Desequilíbrios como eutrofização, fragmentação de habitats e mudanças climáticas alteram populações e serviços ecossistêmicos.'],
+    summary: 'Energia flui; matéria circula. Relacione ações humanas às consequências ecológicas.', concepts: ['cadeia alimentar', 'pirâmides ecológicas', 'ciclos', 'sucessão', 'impactos ambientais'],
+    example: 'O excesso de nutrientes em lagos aumenta algas e pode reduzir o oxigênio dissolvido.', enemTip: 'Procure relações de causa e consequência em problemas socioambientais.', uelTip: 'Domine conceitos, ciclos e leitura de experimentos ecológicos.',
+    questions: [['Produtores ocupam o:', ['último nível','primeiro nível trófico','grupo decompositor','nível sem energia','topo sempre'], 1, 'Eles incorporam energia ao ecossistema.'], ['Na cadeia, a energia:', ['é reciclada integralmente','aumenta','diminui entre níveis','não se transforma','vem dos consumidores'], 2, 'Parte é dissipada como calor.'], ['Eutrofização costuma começar com excesso de:', ['oxigênio','nutrientes','predadores','sal apenas','luz artificial'], 1, 'Nitrogênio e fósforo favorecem florações.']],
+  }),
+  coreTopic({
+    id: 'genetica', subject: 'Biologia', area: 'Ciências da Natureza', title: 'Genética e biotecnologia',
+    description: 'Relacione hereditariedade, DNA, probabilidade e aplicações biotecnológicas.', difficulty: 'Desafio', focus: 'ENEM + UEL', duration: 48,
+    explanation: ['Genes são trechos de DNA; alelos são versões de um gene. Meiose e fecundação explicam segregação e variabilidade.', 'Biotecnologia usa processos biológicos em diagnóstico, produção de fármacos, melhoramento e edição genética, exigindo análise ética.'],
+    summary: 'Use cruzamentos como modelos probabilísticos e diferencie genótipo de fenótipo.', concepts: ['DNA', 'genes', 'leis de Mendel', 'heredograma', 'biotecnologia'],
+    example: 'No cruzamento Aa × Aa, a chance de aa é 1/4.', enemTip: 'Associe genética a saúde, agricultura e ética.', uelTip: 'Treine heredogramas, meiose e resolução discursiva de cruzamentos.',
+    questions: [['Alelos são:', ['células','versões de um gene','proteínas apenas','cromossomos inteiros','organelas'], 1, 'Alelos ocupam o mesmo lócus em homólogos.'], ['Aa é um genótipo:', ['homozigoto','haploide','heterozigoto','letal sempre','sem alelos'], 2, 'Os dois alelos são diferentes.'], ['Na meiose, ocorre:', ['formação de gametas','duplicação sem divisão','clonagem natural sempre','produção de ATP apenas','tradução'], 0, 'A meiose reduz a ploidia e gera gametas.']],
+  }),
+  coreTopic({
+    id: 'energia-termodinamica', subject: 'Física', area: 'Ciências da Natureza', title: 'Energia e termodinâmica',
+    description: 'Resolva transformações de energia, calor, trabalho e rendimento.', difficulty: 'Médio', focus: 'ENEM + UEL', duration: 44,
+    explanation: ['Energia pode mudar de forma, mas se conserva em sistemas isolados. Potência mede a rapidez da transformação energética.', 'Calor é energia em trânsito por diferença de temperatura; equilíbrio térmico ocorre quando essa transferência líquida cessa.'],
+    summary: 'Identifique sistema, transferências, perdas e unidades antes de escolher a equação.', concepts: ['energia', 'trabalho', 'potência', 'calorimetria', 'rendimento'], formulas: ['P=E/Δt', 'Q=mcΔT', 'η=Eútil/Etotal'],
+    example: 'Um aparelho de 1.000 W usa 1 kWh em uma hora.', enemTip: 'Eficiência energética e consumo doméstico são contextos centrais.', uelTip: 'Treine diagramas, sinais e transformações gasosas.',
+    questions: [['Potência mede:', ['energia total','energia por tempo','massa por volume','força por área','temperatura'], 1, 'P=E/Δt.'], ['Calor flui espontaneamente do corpo:', ['frio ao quente','quente ao frio','menos massivo ao mais massivo','menor ao maior','sem direção'], 1, 'A diferença de temperatura dirige a transferência.'], ['Rendimento real costuma ser:', ['maior que 100%','igual a 200%','menor ou igual a 100%','sempre zero','sem unidade e infinito'], 2, 'Parte da energia geralmente se dissipa.']],
+  }),
+  coreTopic({
+    id: 'estequiometria', subject: 'Química', area: 'Ciências da Natureza', title: 'Estequiometria e soluções',
+    description: 'Balanceie reações e relacione mol, massa, volume e concentração.', difficulty: 'Desafio', focus: 'ENEM + UEL', duration: 50,
+    explanation: ['Coeficientes de uma equação balanceada expressam proporções em mol e obedecem à conservação dos átomos.', 'Concentração relaciona quantidade de soluto e volume de solução; em diluições, a quantidade de soluto é conservada.'],
+    summary: 'Balanceie primeiro, converta para mol e só então use a proporção da reação.', concepts: ['mol', 'massa molar', 'balanceamento', 'concentração', 'diluição'], formulas: ['n=m/M', 'C=m/V', 'C₁V₁=C₂V₂'],
+    example: 'Dois mol de H₂ reagem com um mol de O₂ para formar dois mol de H₂O.', enemTip: 'Observe pureza, rendimento e unidades em processos industriais.', uelTip: 'Treine reagente limitante e cálculos encadeados.',
+    questions: [['Um mol contém aproximadamente:', ['6×10²³ entidades','100 entidades','1 kg sempre','22,4 g sempre','zero átomo'], 0, 'É a constante de Avogadro.'], ['Antes da proporção estequiométrica, deve-se:', ['somar massas molares','balancear a equação','diluir sempre','aquecer','mudar produtos'], 1, 'Os coeficientes fornecem a razão molar.'], ['Na diluição, conserva-se a quantidade de:', ['solvente','soluto','volume','temperatura','pressão'], 1, 'Adicionar solvente não altera o soluto.']],
+  }),
+  coreTopic({
+    id: 'brasil-republica', subject: 'História', area: 'Ciências Humanas', title: 'Brasil República e cidadania',
+    description: 'Analise República, Era Vargas, ditadura e redemocratização.', difficulty: 'Médio', focus: 'ENEM + UEL', duration: 46,
+    explanation: ['A República brasileira envolve disputas por poder, trabalho, direitos e participação política, com continuidades e rupturas desde 1889.', 'Industrialização, urbanização, movimentos sociais, autoritarismos e redemocratização devem ser relacionados às fontes e ao contexto.'],
+    summary: 'Evite decorar datas isoladas: conecte grupos sociais, projetos políticos e consequências.', concepts: ['Primeira República', 'Era Vargas', 'ditadura militar', 'redemocratização', 'cidadania'],
+    example: 'A Constituição de 1988 ampliou direitos e simbolizou a reconstrução democrática.', enemTip: 'Compare documentos, charges e diferentes vozes sociais.', uelTip: 'A UEL enfatiza interpretação de fontes, memória, permanências e rupturas.',
+    questions: [['A Constituição de 1988 ficou conhecida como:', ['Imperial','Cidadã','Estado Novo','Moderadora','Colonial'], 1, 'O apelido destaca a ampliação de direitos.'], ['O Estado Novo foi um período:', ['democrático pleno','autoritário','colonial','medieval','sem industrialização'], 1, 'Vargas governou ditatorialmente entre 1937 e 1945.'], ['Analisar uma charge histórica exige considerar:', ['só o desenho','contexto e linguagem','apenas a data','a opinião do aluno','somente o autor'], 1, 'Fonte, contexto e intenção constroem o sentido.']],
+  }),
+  coreTopic({
+    id: 'urbanizacao-globalizacao', subject: 'Geografia', area: 'Ciências Humanas', title: 'Urbanização, redes e globalização',
+    description: 'Entenda cidades, fluxos, desigualdades e organização do espaço.', difficulty: 'Médio', focus: 'ENEM + UEL', duration: 43,
+    explanation: ['Urbanização é o aumento da população urbana e envolve metropolização, segregação socioespacial e demandas por infraestrutura.', 'A globalização intensifica fluxos de capital, mercadorias, informação e pessoas, mas seus benefícios e riscos são distribuídos de modo desigual.'],
+    summary: 'Relacione escalas local e global, território, redes e desigualdade.', concepts: ['urbanização', 'metrópole', 'migração', 'globalização', 'geopolítica'],
+    example: 'Longos deslocamentos periferia-centro revelam separação entre moradia e emprego.', enemTip: 'Mapas, gráficos populacionais e problemas urbanos exigem leitura integrada.', uelTip: 'Dê atenção ao Paraná, redes urbanas e formação territorial brasileira.',
+    questions: [['Segregação socioespacial é:', ['divisão desigual do espaço urbano','fim das cidades','migração internacional apenas','igualdade de infraestrutura','crescimento rural'], 0, 'Grupos têm acesso desigual à cidade.'], ['Globalização intensifica:', ['isolamento total','fluxos e redes','fim dos Estados','igualdade automática','apenas agricultura'], 1, 'Redes conectam lugares em diferentes escalas.'], ['Conurbação ocorre quando:', ['áreas urbanas vizinhas se unem','uma cidade perde população','surge um rio','o campo cresce','fronteiras fecham'], 0, 'As manchas urbanas tornam-se contínuas.']],
+  }),
+  coreTopic({
+    id: 'etica-politica', subject: 'Filosofia', area: 'Ciências Humanas', title: 'Ética, política e conhecimento',
+    description: 'Compare argumentos filosóficos sobre verdade, justiça e vida coletiva.', difficulty: 'Médio', focus: 'ENEM + UEL', duration: 40,
+    explanation: ['Ética investiga critérios para agir; filosofia política discute poder, justiça, liberdade e legitimidade.', 'Teorias do conhecimento perguntam como justificamos crenças e distinguimos opinião, evidência e argumento.'],
+    summary: 'Identifique o problema, a tese e as razões do autor antes de comparar ideias.', concepts: ['ética', 'política', 'epistemologia', 'argumentação', 'justiça'],
+    example: 'Um argumento é válido pela relação entre premissas e conclusão, não apenas porque concordamos com ele.', enemTip: 'Leia conceitos em situações contemporâneas e compare posições.', uelTip: 'Atenção ao texto filosófico, vocabulário e reconstrução do argumento.',
+    questions: [['Ética estuda principalmente:', ['reações químicas','critérios da ação humana','placas tectônicas','células','equações'], 1, 'Ela problematiza valores, deveres e escolhas.'], ['Uma conclusão deve ser sustentada por:', ['premissas','cores','datas apenas','autoridade sem razão','silêncio'], 0, 'Premissas oferecem razões para a conclusão.'], ['Epistemologia investiga:', ['conhecimento','clima','metabolismo','som','relevo'], 0, 'É a área filosófica do conhecimento.']],
+  }),
+  coreTopic({
+    id: 'cultura-desigualdade', subject: 'Sociologia', area: 'Ciências Humanas', title: 'Cultura, trabalho e desigualdade',
+    description: 'Analise socialização, identidades, instituições e relações de poder.', difficulty: 'Médio', focus: 'ENEM + UEL', duration: 40,
+    explanation: ['Cultura é aprendida e compartilhada; socialização transmite valores, normas e formas de interpretar o mundo.', 'Desigualdades de classe, raça e gênero são históricas e se relacionam ao trabalho, às instituições e à distribuição de recursos.'],
+    summary: 'Evite explicações naturais para fenômenos sociais: investigue processos históricos e relações de poder.', concepts: ['cultura', 'socialização', 'trabalho', 'desigualdade', 'movimentos sociais'],
+    example: 'A escola socializa conhecimentos e normas, mas também pode reproduzir ou enfrentar desigualdades.', enemTip: 'Relacione conceitos a dados e conflitos sociais atuais.', uelTip: 'Treine respostas que definam o conceito e o apliquem ao caso apresentado.',
+    questions: [['Socialização é o processo de:', ['aprender normas e valores','produzir energia','formar rochas','dividir células','medir calor'], 0, 'Na convivência, aprendemos padrões culturais.'], ['Desigualdade social é:', ['puramente natural','histórica e institucional','sempre individual','inexistente','só econômica'], 1, 'Instituições e relações históricas distribuem oportunidades.'], ['Movimentos sociais costumam:', ['organizar demandas coletivas','impedir toda mudança','existir só no Estado','negar identidades','eliminar conflitos'], 0, 'Eles articulam atores em torno de reivindicações.']],
+  }),
+  coreTopic({
+    id: 'literatura-brasileira', subject: 'Literatura', area: 'Linguagens', title: 'Literatura brasileira e leitura de obras',
+    description: 'Leia forma, contexto, narrador e linguagem sem reduzir a obra a uma escola literária.', difficulty: 'Médio', focus: 'ENEM + UEL', duration: 45,
+    explanation: ['A análise literária observa quem narra, como o tempo é organizado, quais imagens se repetem e como a forma produz sentidos.', 'Contexto histórico ajuda, mas não substitui a leitura do texto. Intertextualidade aproxima obras, gêneros e épocas.'],
+    summary: 'Sustente a interpretação em elementos da obra e conecte forma, tema e contexto.', concepts: ['narrador', 'eu lírico', 'figuras de linguagem', 'intertextualidade', 'escolas literárias'],
+    example: 'Um narrador-personagem conhece apenas parte dos fatos; sua visão pode ser limitada ou interessada.', enemTip: 'Compare textos literários com artes, canções e questões sociais.', uelTip: 'Leia integralmente as obras indicadas no manual da edição e acompanhe atualizações oficiais.',
+    questions: [['Eu lírico é:', ['o autor real sempre','a voz do poema','o leitor','o editor','o título'], 1, 'É a instância que fala no poema.'], ['Intertextualidade é a relação entre:', ['textos e discursos','números apenas','átomos','mapas sem linguagem','tempos verbais só'], 0, 'Um texto pode retomar ou transformar outro.'], ['Narrador não é necessariamente:', ['uma voz textual','o autor real','quem conta','parte da estrutura','um ponto de vista'], 1, 'Autor e narrador são instâncias diferentes.']],
+  }),
+  coreTopic({
+    id: 'redacao-argumentativa', subject: 'Redação', area: 'Linguagens', title: 'Redação: tese e projeto de texto',
+    description: 'Planeje argumentos, repertório e proposta de intervenção coerente.', difficulty: 'Médio', focus: 'ENEM + UEL', duration: 50,
+    explanation: ['Uma dissertação argumentativa precisa de tese clara, argumentos organizados e progressão entre parágrafos.', 'No ENEM, a proposta de intervenção deve respeitar os direitos humanos e detalhar agente, ação, meio, finalidade e, quando pertinente, um complemento.'],
+    summary: 'Planeje antes de escrever: recorte o tema, formule a tese e dê uma função a cada parágrafo.', concepts: ['tese', 'argumento', 'coesão', 'repertório', 'intervenção'],
+    example: 'Repertório produtivo é explicado e ligado ao argumento; citar uma obra sem conexão não fortalece a tese.', enemTip: 'Revise as cinco competências e detalhe uma intervenção viável.', uelTip: 'Observe o gênero solicitado: a UEL pode propor formatos diferentes conforme o manual.',
+    questions: [['A tese é:', ['a posição central','qualquer citação','o título obrigatório','um dado solto','a conclusão copiada'], 0, 'Ela orienta toda a argumentação.'], ['Repertório produtivo deve:', ['ser decorado','relacionar-se ao argumento','substituir a tese','aparecer sem explicação','ser fictício'], 1, 'A conexão com o raciocínio dá função ao repertório.'], ['Na intervenção do ENEM, é importante indicar:', ['agente e ação','apenas uma crítica','só o tema','uma pergunta','nenhuma finalidade'], 0, 'Detalhamento torna a proposta concreta.']],
+  }),
+  coreTopic({
+    id: 'ingles-leitura', subject: 'Inglês', area: 'Linguagens', title: 'Inglês: leitura e estratégias',
+    description: 'Use contexto, cognatos e estrutura textual para compreender textos autênticos.', difficulty: 'Médio', focus: 'ENEM + UEL', duration: 35,
+    explanation: ['Leitura em língua estrangeira não exige traduzir tudo. Título, gênero, imagens e palavras recorrentes antecipam o tema.', 'Cognatos ajudam, mas falsos cognatos exigem contexto. Conectores mostram contraste, causa, consequência e conclusão.'],
+    summary: 'Leia globalmente, localize a informação pedida e confirme o sentido pelo contexto.', concepts: ['skimming', 'scanning', 'cognatos', 'conectores', 'inferência'],
+    example: '“Actually” geralmente significa “na verdade”, e não “atualmente”.', enemTip: 'Foque finalidade, ponto de vista e efeito de linguagem.', uelTip: 'Treine textos de gêneros variados e vocabulário em contexto.',
+    questions: [['Scanning é usado para:', ['localizar informação específica','traduzir tudo','decorar verbos','reescrever o texto','ignorar títulos'], 0, 'A leitura rápida busca um dado pontual.'], ['“However” indica:', ['adição','contraste','tempo','lugar','exemplo'], 1, 'Equivale a “porém/contudo”.'], ['Um falso cognato:', ['tem forma parecida e sentido diferente','é sempre verbo','não existe','é um número','é sinônimo perfeito'], 0, 'A semelhança gráfica pode enganar.']],
+  }),
+  coreTopic({
+    id: 'artes-modernismo', subject: 'Artes', area: 'Linguagens', title: 'Artes, modernismo e cultura visual',
+    description: 'Interprete obras, movimentos, linguagens e relações entre arte e sociedade.', difficulty: 'Médio', focus: 'ENEM + UEL', duration: 38,
+    explanation: ['A leitura de uma obra considera materiais, composição, contexto, circulação e possíveis sentidos, sem procurar uma única resposta automática.', 'O modernismo brasileiro questionou modelos acadêmicos e debateu identidade, experimentação e cultura nacional.'],
+    summary: 'Observe primeiro a obra; depois relacione seus elementos ao contexto e à proposta estética.', concepts: ['artes visuais', 'modernismo', 'vanguardas', 'cultura popular', 'patrimônio'],
+    example: 'A Semana de 1922 tornou-se marco simbólico de debates modernistas no Brasil.', enemTip: 'Integre imagem, texto e contexto sociocultural.', uelTip: 'Considere artes visuais, música, teatro, dança e patrimônio no programa.',
+    questions: [['A Semana de Arte Moderna ocorreu em:', ['1822','1889','1922','1964','2000'], 2, 'O evento aconteceu em fevereiro de 1922.'], ['Ler uma obra visual envolve:', ['só identificar o autor','forma e contexto','apenas preço','decorar dimensões','ignorar materiais'], 1, 'Elementos visuais e contexto participam do sentido.'], ['Patrimônio imaterial inclui:', ['apenas prédios','saberes e celebrações','somente pinturas','minérios','planetas'], 1, 'Práticas e conhecimentos também constituem patrimônio.']],
+  }),
+);
+
 export const subjects = [
   'Português',
   'Literatura',
